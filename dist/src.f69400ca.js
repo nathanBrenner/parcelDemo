@@ -35703,7 +35703,7 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"app/routes/public/landing.tsx":[function(require,module,exports) {
+},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"components/tab.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -35722,10 +35722,120 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(require("react"));
 
-exports.Landing = function () {
-  return React.createElement("div", null, "Landing");
+var Tab = function Tab(props) {
+  var onClick = function onClick() {
+    var label = props.label,
+        onClick = props.onClick;
+    onClick(label);
+  };
+
+  var className = 'tab-list-item';
+
+  if (props.activeTab === props.label) {
+    className += ' tab-list-active';
+  }
+
+  return React.createElement("li", {
+    className: className,
+    onClick: onClick
+  }, props.label);
 };
-},{"react":"../node_modules/react/index.js"}],"../node_modules/react-fast-compare/index.js":[function(require,module,exports) {
+
+exports.default = Tab;
+},{"react":"../node_modules/react/index.js"}],"components/tabs.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var tab_1 = __importDefault(require("./tab"));
+
+var Tabs = function Tabs(_a) {
+  var children = _a.children;
+
+  var _b = React.useState(children[0].props.label),
+      activeTab = _b[0],
+      setActiveTab = _b[1];
+
+  return React.createElement("div", {
+    className: "tabs"
+  }, React.createElement("ol", {
+    className: "tab-list"
+  }, children.map(function (child) {
+    var label = child.props.label;
+    return React.createElement(tab_1.default, {
+      activeTab: activeTab,
+      key: label,
+      label: label,
+      onClick: setActiveTab
+    });
+  })), React.createElement("div", {
+    className: "tab-content"
+  }, children.map(function (child, i) {
+    if (child.props.label !== activeTab) return undefined;
+    return React.createElement("div", {
+      key: i
+    }, child.props.children);
+  })));
+};
+
+exports.default = Tabs;
+},{"react":"../node_modules/react/index.js","./tab":"components/tab.tsx"}],"app/routes/public/landing.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var tabs_1 = __importDefault(require("../../../components/tabs"));
+
+exports.Landing = function () {
+  return React.createElement("div", null, React.createElement("h1", null, "Tabs Demo"), React.createElement(tabs_1.default, null, React.createElement("div", {
+    label: "Gator"
+  }, "See ya later, ", React.createElement("em", null, "Alligator"), "!"), React.createElement("div", {
+    label: "Croc"
+  }, "After 'while, ", React.createElement("em", null, "Crocodile"), "!"), React.createElement("div", {
+    label: "Sarcosuchus"
+  }, "Nothing to see here, this tab is ", React.createElement("em", null, "extinct"), "!")));
+};
+},{"react":"../node_modules/react/index.js","../../../components/tabs":"components/tabs.tsx"}],"../node_modules/react-fast-compare/index.js":[function(require,module,exports) {
 'use strict';
 
 var isArray = Array.isArray;
@@ -46881,7 +46991,79 @@ exports.AppRouter = function () {
     path: "/"
   }, React.createElement(public_1.Landing, null)))));
 };
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx"}],"app/index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx"}],"../../../../.npm/_npx/16331/lib/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../.npm/_npx/16331/lib/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../.npm/_npx/16331/lib/node_modules/parcel/src/builtins/bundle-url.js"}],"app/style.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../.npm/_npx/16331/lib/node_modules/parcel/src/builtins/css-loader.js"}],"app/index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -46902,10 +47084,14 @@ var React = __importStar(require("react"));
 
 var routes_1 = require("./routes");
 
+require("./style.css");
+
 exports.App = function () {
-  return React.createElement("div", null, React.createElement(routes_1.AppRouter, null));
+  return React.createElement("div", {
+    className: 'app'
+  }, React.createElement(routes_1.AppRouter, null));
 };
-},{"react":"../node_modules/react/index.js","./routes":"app/routes/index.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./routes":"app/routes/index.tsx","./style.css":"app/style.css"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -46929,7 +47115,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/12508/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/18311/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46957,7 +47143,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61267" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49609" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47133,5 +47319,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/12508/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/18311/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map

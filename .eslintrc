@@ -9,6 +9,7 @@
   "rules": {
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-explicit-any": 0,
     "react/jsx-uses-vars": "error",
     "standard/object-curly-even-spacing": ["error", "either"]
   }
