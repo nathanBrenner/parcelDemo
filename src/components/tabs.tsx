@@ -1,15 +1,17 @@
 import * as React from 'react'
+import styled from 'styled-components'
+
 import Tab from './tab'
 
 type Props = {
+  activeTab: string
   children: React.ReactElement[]
 };
 
-const Tabs: React.FunctionComponent<Props> = ({ children }: Props): JSX.Element => {
-  const [activeTab, setActiveTab] = React.useState(children[0].props.label)
+const Tabs: React.FunctionComponent<Props> = ({ activeTab, children }: Props): JSX.Element => {
   return (
-    <div className="tabs">
-      <ol className="tab-list">
+    <div>
+      <TabList>
         {children.map((child) => {
           const { label } = child.props
 
@@ -18,12 +20,11 @@ const Tabs: React.FunctionComponent<Props> = ({ children }: Props): JSX.Element 
               activeTab={activeTab}
               key={label}
               label={label}
-              onClick={setActiveTab}
             />
           )
         })}
-      </ol>
-      <div className="tab-content">
+      </TabList>
+      <div>
         {children.map((child, i) => {
           if (child.props.label !== activeTab) return undefined
           return <div key={i}>{child.props.children}</div>
@@ -32,5 +33,10 @@ const Tabs: React.FunctionComponent<Props> = ({ children }: Props): JSX.Element 
     </div>
   )
 }
+
+const TabList = styled.ol`
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+`
 
 export default Tabs
