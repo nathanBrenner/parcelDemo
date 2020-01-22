@@ -35723,48 +35723,7 @@ Object.defineProperty(exports, "__esModule", {
 var React = __importStar(require("react"));
 
 exports.Landing = function () {
-  var _a = React.useState(''),
-      loading = _a[0],
-      setLoading = _a[1];
-
-  var _b = React.useState(false),
-      loaded = _b[0],
-      setLoaded = _b[1];
-
-  React.useEffect(function () {
-    var interval = 0;
-
-    if (!loaded) {
-      interval = setInterval(function () {
-        switch (loading) {
-          case '':
-            setLoading('.');
-            break;
-
-          case '.':
-            setLoading('..');
-            break;
-
-          case '..':
-            setLoading('...');
-            break;
-
-          case '...':
-            setLoading('');
-            break;
-        }
-      }, 500);
-    } else if (interval) {
-      clearInterval(interval);
-      setLoading('');
-    }
-
-    return function () {
-      return clearInterval(interval);
-    };
-  }, [loading, setLoading, loaded]); // setTimeout(() => setLoaded(true), Math.floor(Math.random() * 5000))
-
-  return React.createElement("div", null, "Loading" + loading);
+  return React.createElement("div", null, "Landing");
 };
 },{"react":"../node_modules/react/index.js"}],"../node_modules/react-fast-compare/index.js":[function(require,module,exports) {
 'use strict';
@@ -43518,7 +43477,104 @@ exports.SignIn = function () {
     }, "Submit"));
   }));
 };
-},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js"}],"app/routes/public/index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js"}],"app/routes/public/loading/components/loading.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+exports.Loading = function () {
+  var _a = React.useState(''),
+      loading = _a[0],
+      setLoading = _a[1];
+
+  var _b = React.useState(false),
+      loaded = _b[0],
+      setLoaded = _b[1];
+
+  React.useEffect(function () {
+    var interval = 0;
+
+    if (!loaded) {
+      interval = setInterval(function () {
+        switch (loading) {
+          case '':
+            setLoading('.');
+            break;
+
+          case '.':
+            setLoading('..');
+            break;
+
+          case '..':
+            setLoading('...');
+            break;
+
+          case '...':
+            setLoading('');
+            break;
+        }
+      }, 500);
+    } else if (interval) {
+      clearInterval(interval);
+      setLoading('');
+    }
+
+    return function () {
+      return clearInterval(interval);
+    };
+  }, [loading, setLoading, loaded]); // setTimeout(() => setLoaded(true), Math.floor(Math.random() * 5000))
+
+  return React.createElement("div", null, "Loading" + loading);
+};
+},{"react":"../node_modules/react/index.js"}],"app/routes/public/loading/components/index.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var loading_1 = require("./loading");
+
+exports.Loading = loading_1.Loading;
+},{"./loading":"app/routes/public/loading/components/loading.tsx"}],"app/routes/public/loading/loading.route.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var components_1 = require("./components");
+
+exports.LoadingRoute = function () {
+  return React.createElement(components_1.Loading, null);
+};
+},{"react":"../node_modules/react/index.js","./components":"app/routes/public/loading/components/index.tsx"}],"app/routes/public/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43532,7 +43588,11 @@ exports.Landing = landing_1.Landing;
 var sign_in_1 = require("./sign-in");
 
 exports.SignIn = sign_in_1.SignIn;
-},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
+
+var loading_route_1 = require("./loading/loading.route");
+
+exports.LoadingRoute = loading_route_1.LoadingRoute;
+},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -46870,7 +46930,9 @@ exports.Header = function () {
     to: "/log-in"
   }, "Login"), React.createElement(StyledLink, {
     to: "/home"
-  }, "Home"));
+  }, "Home"), React.createElement(StyledLink, {
+    to: "/loading"
+  }, "Loading"));
 };
 
 var StyledLink = styled_components_1.default(react_router_dom_1.Link)(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n\n"], ["\n\n"])));
@@ -46919,6 +46981,8 @@ exports.AppRouter = function () {
   }, React.createElement(public_1.SignIn, null)), React.createElement(react_router_dom_1.Route, {
     path: "/home"
   }, React.createElement(private_1.Home, null)), React.createElement(react_router_dom_1.Route, {
+    path: "/loading"
+  }, React.createElement(public_1.LoadingRoute, null)), React.createElement(react_router_dom_1.Route, {
     path: "/"
   }, React.createElement(public_1.Landing, null)))));
 };
@@ -46970,7 +47034,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/23307/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/30850/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46998,7 +47062,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59628" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52721" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47174,5 +47238,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/23307/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/30850/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map

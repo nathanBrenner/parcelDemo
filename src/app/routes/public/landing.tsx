@@ -9,14 +9,8 @@ const routes = [
   { to: '/loading', label: 'loading' }
 ]
 
-<<<<<<< HEAD
 export const Landing: React.FunctionComponent<{}> = (): React.ReactElement => {
   return (
     <ul>{routes.map(({ to, label }) => (<li key={to}><Link to={to}>{label}</Link></li>))}</ul>
   )
-=======
-  // setTimeout(() => setLoaded(true), Math.floor(Math.random() * 5000))
-
-  return <div>{`Loading${loading}`}</div>
->>>>>>> loading poc
 }
