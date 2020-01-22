@@ -1,10 +1,8 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Landing, SignIn } from './public'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Landing, SignIn, TabsRouter } from './public'
 import { Home } from './private'
 import { Header } from '../../components'
-
-const tabs = ['Gator', 'Croc', 'Sarcosuchus']
 
 export const AppRouter: React.FunctionComponent<{}> = (): React.ReactElement => {
   return (
@@ -18,11 +16,11 @@ export const AppRouter: React.FunctionComponent<{}> = (): React.ReactElement => 
           <Route path="/home">
             <Home />
           </Route>
-          <Route exact path="/">
-            <Redirect to={{ pathname: '/tabs', search: `?activeTab=${tabs[0]}` }} />
+          <Route path="/tabs">
+            <TabsRouter />
           </Route>
-          <Route path='/tabs'>
-            <Landing tabs={tabs}></Landing>
+          <Route exact path="/">
+            <Landing />
           </Route>
         </Switch>
       </div>
