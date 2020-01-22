@@ -46742,6 +46742,10 @@ exports.SkeletonRoute = function () {
       isLoading = _a[0],
       setIsLoading = _a[1];
 
+  var _b = React.useState(true),
+      hasErrored = _b[0],
+      setHasErrored = _b[1];
+
   React.useEffect(function () {
     var interval = setInterval(function () {
       return setIsLoading(function (is) {
@@ -46752,22 +46756,25 @@ exports.SkeletonRoute = function () {
       return clearInterval(interval);
     };
   }, [isLoading]);
-  return React.createElement("div", null, React.createElement("h1", null, React.createElement(Skeleton, {
-    condition: isLoading
+  return React.createElement("div", null, React.createElement("h1", null, React.createElement(Skeletons, {
+    isLoading: isLoading,
+    hasErrored: hasErrored
   }, "Hello")));
-}; // @ts-ignore
+};
 
-
-var Skeleton = function Skeleton(_a) {
-  var condition = _a.condition,
-      children = _a.children;
-  return condition ? React.createElement(SkeletonLine, null) : React.createElement(React.Fragment, null, children);
+var Skeletons = function Skeletons(_a) {
+  var isLoading = _a.isLoading,
+      hasErrored = _a.hasErrored,
+      children = _a.children,
+      _b = _a.errorMessage,
+      errorMessage = _b === void 0 ? 'Nothing to show here' : _b;
+  return isLoading ? React.createElement(SkeletonLine, null) : React.createElement(React.Fragment, null, hasErrored ? errorMessage : children);
 };
 
 var SSkeletonPulse = styled_components_1.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: inline-block;\n  height: 100%;\n  width: 100%;\n  background: ", ";\n  background-size: 400% 400%;\n  animation: pulse 1.2s ease-in-out infinite;\n  @keyframes pulse {\n    0% {\n      background-position: 0% 0%;\n    }\n    100% {\n      background-position: -135% 0%;\n    }\n  }\n"], ["\n  display: inline-block;\n  height: 100%;\n  width: 100%;\n  background: ", ";\n  background-size: 400% 400%;\n  animation: pulse 1.2s ease-in-out infinite;\n  @keyframes pulse {\n    0% {\n      background-position: 0% 0%;\n    }\n    100% {\n      background-position: -135% 0%;\n    }\n  }\n"])), function (props) {
   return props.translucent ? styled_components_1.css(templateObject_1 || (templateObject_1 = __makeTemplateObject(["linear-gradient(-90deg, #C1C1C1 0%, #F8F8F8 50%, #C1C1C1 100%)"], ["linear-gradient(-90deg, #C1C1C1 0%, #F8F8F8 50%, #C1C1C1 100%)"]))) : styled_components_1.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["linear-gradient(-90deg, #F0F0F0 0%, #F8F8F8 50%, #F0F0F0 100%)"], ["linear-gradient(-90deg, #F0F0F0 0%, #F8F8F8 50%, #F0F0F0 100%)"])));
 });
-var SSkeletonLine = styled_components_1.default(SSkeletonPulse)(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  width: 5.5em;\n  border-radius: 5px;\n\n  &::before {\n    content: \"\x000a0\";\n  }\n"], ["\n  width: 5.5em;\n  border-radius: 5px;\n\n  &::before {\n    content: \"\\00a0\";\n  }\n"])));
+var SSkeletonLine = styled_components_1.default(SSkeletonPulse)(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  width: 5.5em;\n  border-radius: 5px;\n  width: 100%;\n  &::before {\n    content: \"\x000a0\";\n  }\n"], ["\n  width: 5.5em;\n  border-radius: 5px;\n  width: 100%;\n  &::before {\n    content: \"\\00a0\";\n  }\n"])));
 
 var SkeletonLine = function SkeletonLine(_a) {
   var _b = _a.translucent,
@@ -47062,7 +47069,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/33256/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/34363/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47090,7 +47097,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62712" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58616" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47266,5 +47273,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/33256/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/34363/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map

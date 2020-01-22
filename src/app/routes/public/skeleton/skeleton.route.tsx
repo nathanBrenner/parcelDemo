@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 export const SkeletonRoute: React.FC<{}> = (): React.ReactElement => {
   const [isLoading, setIsLoading] = React.useState(false)
+  const [hasErrored, setHasErrored] = React.useState(true)
 
   React.useEffect(() => {
     const interval = setInterval(() => setIsLoading(is => !is), 2000)
@@ -11,21 +12,13 @@ export const SkeletonRoute: React.FC<{}> = (): React.ReactElement => {
 
   return (
     <div>
-      <h1><Skeleton condition={isLoading}>Hello</Skeleton></h1>
+      <h1><Skeletons isLoading={isLoading} hasErrored={hasErrored}>Hello</Skeletons></h1>
     </div>
   )
 }
 
-type Props = {
-  condition: boolean
-}
-
-// @ts-ignore
-const Skeleton: React.FC<Props> = ({
-  condition,
-  children
-}: { condition: boolean, children: React.ReactChild | React.ReactChildren }) =>
-  condition ? <SkeletonLine /> : <>{children}</>;
+const Skeletons: React.FC<{ isLoading: boolean, hasErrored: boolean, errorMessage?: string }> = ({ isLoading, hasErrored, children, errorMessage = 'Nothing to show here' }) =>
+  isLoading ? <SkeletonLine /> : <>{hasErrored ? errorMessage : children}</>
 
 const SSkeletonPulse = styled.div`
   display: inline-block;
@@ -50,7 +43,7 @@ const SSkeletonPulse = styled.div`
 const SSkeletonLine = styled(SSkeletonPulse)`
   width: 5.5em;
   border-radius: 5px;
-
+  width: 100%;
   &::before {
     content: "\00a0";
   }
