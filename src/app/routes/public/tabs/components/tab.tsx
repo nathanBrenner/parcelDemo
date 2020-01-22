@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 type Props = {
-  activeTab: string;
-  label: string;
+  activeTab: string
+  label: string
 }
 
 const Tab: React.FunctionComponent<Props> = (props: Props) => {
-  const TabComponent = props.activeTab === props.label ? TabListActive : TabListItem;
+  const TabComponent = props.activeTab === props.label ? TabListActive : TabListItem
   return <TabComponent><Link to={`/tabs?activeTab=${props.label}`}>{props.label}</Link></TabComponent>
 }
 

@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 const routes = [
-  { to: '/', label: 'Landing' },
   { to: '/log-in', label: 'Formik' },
   { to: '/home', label: 'home' },
   { to: '/tabs', label: 'tabs' },

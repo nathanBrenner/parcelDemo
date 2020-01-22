@@ -35725,9 +35725,6 @@ var React = __importStar(require("react"));
 var react_router_dom_1 = require("react-router-dom");
 
 var routes = [{
-  to: '/',
-  label: 'Landing'
-}, {
   to: '/log-in',
   label: 'Formik'
 }, {
@@ -46762,7 +46759,7 @@ if ("development" !== 'production' && "development" !== 'test' && typeof window 
 
 var _default = styled;
 exports.default = _default;
-},{"stylis/stylis.min":"../node_modules/stylis/stylis.min.js","stylis-rule-sheet":"../node_modules/stylis-rule-sheet/index.js","react":"../node_modules/react/index.js","@emotion/unitless":"../node_modules/@emotion/unitless/dist/unitless.browser.esm.js","react-is":"../node_modules/react-is/index.js","memoize-one":"../node_modules/memoize-one/dist/memoize-one.esm.js","prop-types":"../node_modules/prop-types/index.js","@emotion/is-prop-valid":"../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","merge-anything":"../node_modules/merge-anything/dist/index.esm.js","process":"../../../../.npm/_npx/12508/lib/node_modules/parcel/node_modules/process/browser.js"}],"components/tab.tsx":[function(require,module,exports) {
+},{"stylis/stylis.min":"../node_modules/stylis/stylis.min.js","stylis-rule-sheet":"../node_modules/stylis-rule-sheet/index.js","react":"../node_modules/react/index.js","@emotion/unitless":"../node_modules/@emotion/unitless/dist/unitless.browser.esm.js","react-is":"../node_modules/react-is/index.js","memoize-one":"../node_modules/memoize-one/dist/memoize-one.esm.js","prop-types":"../node_modules/prop-types/index.js","@emotion/is-prop-valid":"../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","merge-anything":"../node_modules/merge-anything/dist/index.esm.js","process":"../../../../.npm/_npx/12508/lib/node_modules/parcel/node_modules/process/browser.js"}],"app/routes/public/tabs/components/tab.tsx":[function(require,module,exports) {
 "use strict";
 
 var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
@@ -46814,7 +46811,7 @@ var TabListItem = styled_components_1.default.li(templateObject_1 || (templateOb
 var TabListActive = styled_components_1.default(TabListItem)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  background-color: white;\n  border: solid #ccc;\n  border-width: 1px 1px 0 1px;\n"], ["\n  background-color: white;\n  border: solid #ccc;\n  border-width: 1px 1px 0 1px;\n"])));
 exports.default = Tab;
 var templateObject_1, templateObject_2;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/tabs.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"app/routes/public/tabs/components/tabs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
@@ -46855,7 +46852,7 @@ var styled_components_1 = __importDefault(require("styled-components"));
 
 var tab_1 = __importDefault(require("./tab"));
 
-var Tabs = function Tabs(_a) {
+exports.Tabs = function (_a) {
   var activeTab = _a.activeTab,
       children = _a.children;
   return React.createElement("div", null, React.createElement(TabList, null, children.map(function (child) {
@@ -46874,9 +46871,8 @@ var Tabs = function Tabs(_a) {
 };
 
 var TabList = styled_components_1.default.ol(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  border-bottom: 1px solid #ccc;\n  padding-left: 0;\n"], ["\n  border-bottom: 1px solid #ccc;\n  padding-left: 0;\n"])));
-exports.default = Tabs;
 var templateObject_1;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./tab":"components/tab.tsx"}],"app/routes/public/tabs-demo.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./tab":"app/routes/public/tabs/components/tab.tsx"}],"app/routes/public/tabs/components/tabs-demo.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -46889,10 +46885,59 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var react_router_dom_1 = require("react-router-dom");
+
+var tabs_1 = require("./tabs");
+
+exports.TabsDemo = function (_a) {
+  var tabs = _a.tabs;
+  var location = react_router_dom_1.useLocation();
+
+  var _b = React.useState(tabs[0]),
+      activeTab = _b[0],
+      setActiveTab = _b[1];
+
+  React.useEffect(function () {
+    var query = new URLSearchParams(location.search);
+    setActiveTab(query.get('activeTab') || tabs[0]);
+  }, [location, activeTab, setActiveTab]);
+  return React.createElement("div", null, React.createElement("h1", null, "Tabs Demo"), React.createElement(tabs_1.Tabs, {
+    activeTab: activeTab
+  }, React.createElement("div", {
+    label: tabs[0]
+  }, "See ya later, ", React.createElement("em", null, "Alligator"), "!"), React.createElement("div", {
+    label: tabs[1]
+  }, "After 'while, ", React.createElement("em", null, "Crocodile"), "!"), React.createElement("div", {
+    label: tabs[2]
+  }, "Nothing to see here, this tab is ", React.createElement("em", null, "extinct"), "!")));
+};
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./tabs":"app/routes/public/tabs/components/tabs.tsx"}],"app/routes/public/tabs/components/index.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var tabs_demo_1 = require("./tabs-demo");
+
+exports.TabsDemo = tabs_demo_1.TabsDemo;
+},{"./tabs-demo":"app/routes/public/tabs/components/tabs-demo.tsx"}],"app/routes/public/tabs/tabs.router.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
 };
 
 Object.defineProperty(exports, "__esModule", {
@@ -46903,7 +46948,7 @@ var React = __importStar(require("react"));
 
 var react_router_dom_1 = require("react-router-dom");
 
-var tabs_1 = __importDefault(require("../../../components/tabs"));
+var components_1 = require("./components");
 
 var tabs = ['Gator', 'Croc', 'Sarcosuchus'];
 
@@ -46918,34 +46963,11 @@ exports.TabsRouter = function () {
     }
   })), React.createElement(react_router_dom_1.Route, {
     path: "/tabs"
-  }, React.createElement(TabsDemo, {
+  }, React.createElement(components_1.TabsDemo, {
     tabs: tabs
   }))));
 };
-
-var TabsDemo = function TabsDemo(_a) {
-  var tabs = _a.tabs;
-  var location = react_router_dom_1.useLocation();
-
-  var _b = React.useState(tabs[0]),
-      activeTab = _b[0],
-      setActiveTab = _b[1];
-
-  React.useEffect(function () {
-    var query = new URLSearchParams(location.search);
-    setActiveTab(query.get('activeTab') || tabs[0]);
-  }, [location, activeTab, setActiveTab]);
-  return React.createElement("div", null, React.createElement("h1", null, "Tabs Demo"), React.createElement(tabs_1.default, {
-    activeTab: activeTab
-  }, React.createElement("div", {
-    label: tabs[0]
-  }, "See ya later, ", React.createElement("em", null, "Alligator"), "!"), React.createElement("div", {
-    label: tabs[1]
-  }, "After 'while, ", React.createElement("em", null, "Crocodile"), "!"), React.createElement("div", {
-    label: tabs[2]
-  }, "Nothing to see here, this tab is ", React.createElement("em", null, "extinct"), "!")));
-};
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../../components/tabs":"components/tabs.tsx"}],"app/routes/public/loading/components/loading.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components":"app/routes/public/tabs/components/index.tsx"}],"app/routes/public/loading/components/loading.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47057,14 +47079,14 @@ var sign_in_1 = require("./sign-in");
 
 exports.SignIn = sign_in_1.SignIn;
 
-var tabs_demo_1 = require("./tabs-demo");
+var tabs_router_1 = require("./tabs/tabs.router");
 
-exports.TabsRouter = tabs_demo_1.TabsRouter;
+exports.TabsRouter = tabs_router_1.TabsRouter;
 
 var loading_route_1 = require("./loading/loading.route");
 
 exports.LoadingRoute = loading_route_1.LoadingRoute;
-},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs-demo":"app/routes/public/tabs-demo.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
+},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs/tabs.router":"app/routes/public/tabs/tabs.router.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47320,7 +47342,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47348,7 +47370,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56013" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58975" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47524,5 +47546,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map

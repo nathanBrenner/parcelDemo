@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactElement[]
 };
 
-const Tabs: React.FunctionComponent<Props> = ({ activeTab, children }: Props): JSX.Element => {
+export const Tabs: React.FunctionComponent<Props> = ({ activeTab, children }: Props): JSX.Element => {
   return (
     <div>
       <TabList>
@@ -38,5 +38,3 @@ const TabList = styled.ol`
   border-bottom: 1px solid #ccc;
   padding-left: 0;
 `
-
-export default Tabs

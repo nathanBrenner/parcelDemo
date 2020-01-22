@@ -1,25 +1,8 @@
 import * as React from 'react'
-import { useLocation, BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { Tabs } from './tabs'
 
-import Tabs from '../../../components/tabs'
-
-const tabs = ['Gator', 'Croc', 'Sarcosuchus']
-export const TabsRouter: React.FC<{}> = (): React.ReactElement => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-        <Redirect to={{ pathname: '/tabs', search: `?activeTab=${tabs[0]}` }} />
-        </Route>
-        <Route path="/tabs">
-          <TabsDemo tabs={tabs}></TabsDemo>
-        </Route>
-      </Switch>
-    </Router>
-  )
-}
-
-const TabsDemo: React.FunctionComponent<{tabs: string[]}> = ({ tabs }: {tabs: string[]}): React.ReactElement => {
+export const TabsDemo: React.FunctionComponent<{tabs: string[]}> = ({ tabs }: {tabs: string[]}): React.ReactElement => {
   const location = useLocation()
   const [activeTab, setActiveTab] = React.useState(tabs[0])
 
