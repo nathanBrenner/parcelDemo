@@ -5,7 +5,8 @@ const routes = [
   { to: '/log-in', label: 'Formik' },
   { to: '/home', label: 'home' },
   { to: '/tabs', label: 'tabs' },
-  { to: '/loading', label: 'loading' }
+  { to: '/loading', label: 'loading' },
+  { to: '/skeleton', label: 'skeleton' }
 ]
 
 export const Landing: React.FunctionComponent<{}> = (): React.ReactElement => {
