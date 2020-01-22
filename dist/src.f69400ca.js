@@ -35736,6 +35736,9 @@ var routes = [{
 }, {
   to: '/tabs',
   label: 'tabs'
+}, {
+  to: '/loading',
+  label: 'loading'
 }];
 
 exports.Landing = function () {
@@ -46942,7 +46945,104 @@ var TabsDemo = function TabsDemo(_a) {
     label: tabs[2]
   }, "Nothing to see here, this tab is ", React.createElement("em", null, "extinct"), "!")));
 };
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../../components/tabs":"components/tabs.tsx"}],"app/routes/public/index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../../components/tabs":"components/tabs.tsx"}],"app/routes/public/loading/components/loading.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+exports.Loading = function () {
+  var _a = React.useState(''),
+      loading = _a[0],
+      setLoading = _a[1];
+
+  var _b = React.useState(false),
+      loaded = _b[0],
+      setLoaded = _b[1];
+
+  React.useEffect(function () {
+    var interval = 0;
+
+    if (!loaded) {
+      interval = setInterval(function () {
+        switch (loading) {
+          case '':
+            setLoading('.');
+            break;
+
+          case '.':
+            setLoading('..');
+            break;
+
+          case '..':
+            setLoading('...');
+            break;
+
+          case '...':
+            setLoading('');
+            break;
+        }
+      }, 500);
+    } else if (interval) {
+      clearInterval(interval);
+      setLoading('');
+    }
+
+    return function () {
+      return clearInterval(interval);
+    };
+  }, [loading, setLoading, loaded]); // setTimeout(() => setLoaded(true), Math.floor(Math.random() * 5000))
+
+  return React.createElement("div", null, "Loading" + loading);
+};
+},{"react":"../node_modules/react/index.js"}],"app/routes/public/loading/components/index.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var loading_1 = require("./loading");
+
+exports.Loading = loading_1.Loading;
+},{"./loading":"app/routes/public/loading/components/loading.tsx"}],"app/routes/public/loading/loading.route.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var components_1 = require("./components");
+
+exports.LoadingRoute = function () {
+  return React.createElement(components_1.Loading, null);
+};
+},{"react":"../node_modules/react/index.js","./components":"app/routes/public/loading/components/index.tsx"}],"app/routes/public/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46960,7 +47060,11 @@ exports.SignIn = sign_in_1.SignIn;
 var tabs_demo_1 = require("./tabs-demo");
 
 exports.TabsRouter = tabs_demo_1.TabsRouter;
-},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs-demo":"app/routes/public/tabs-demo.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
+
+var loading_route_1 = require("./loading/loading.route");
+
+exports.LoadingRoute = loading_route_1.LoadingRoute;
+},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs-demo":"app/routes/public/tabs-demo.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47087,11 +47191,12 @@ exports.AppRouter = function () {
   }, React.createElement(private_1.Home, null)), React.createElement(react_router_dom_1.Route, {
     path: "/tabs"
   }, React.createElement(public_1.TabsRouter, null)), React.createElement(react_router_dom_1.Route, {
-    exact: true,
+    path: "/loading"
+  }, React.createElement(public_1.LoadingRoute, null)), React.createElement(react_router_dom_1.Route, {
     path: "/"
   }, React.createElement(public_1.Landing, null)))));
 };
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx"}],"../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx"}],"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -47123,7 +47228,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -47158,12 +47263,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/bundle-url.js"}],"app/style.css":[function(require,module,exports) {
+},{"./bundle-url":"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/bundle-url.js"}],"app/style.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/css-loader.js"}],"app/index.tsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/css-loader.js"}],"app/index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47215,7 +47320,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47243,7 +47348,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58564" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56013" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47419,5 +47524,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/29627/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/31698/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map
