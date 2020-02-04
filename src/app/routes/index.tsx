@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Landing, SignIn, TabsRouter, LoadingRoute, SkeletonRoute } from './public'
+import { Landing, SignIn, TabsRouter, LoadingRoute, SkeletonRoute, ContextRoute, LoadingContext } from './public'
 import { Home } from './private'
 import { Header } from '../../components'
 
@@ -25,6 +25,8 @@ export const AppRouter: React.FunctionComponent<{}> = (): React.ReactElement => 
           <Route path="/skeleton">
             <SkeletonRoute />
           </Route>
+          <Route path="/context" component={ContextRoute} />
+          <Route path="/loading-context" component={LoadingContext} />
           <Route path="/">
             <Landing />
           </Route>

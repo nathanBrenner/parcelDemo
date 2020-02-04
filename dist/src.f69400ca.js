@@ -35739,6 +35739,12 @@ var routes = [{
 }, {
   to: '/skeleton',
   label: 'skeleton'
+}, {
+  to: '/context',
+  label: 'context'
+}, {
+  to: '/loading-context',
+  label: 'loading-context'
 }];
 
 exports.Landing = function () {
@@ -46742,7 +46748,7 @@ exports.SkeletonRoute = function () {
       isLoading = _a[0],
       setIsLoading = _a[1];
 
-  var _b = React.useState(true),
+  var _b = React.useState(false),
       hasErrored = _b[0],
       setHasErrored = _b[1];
 
@@ -46785,7 +46791,343 @@ var SkeletonLine = function SkeletonLine(_a) {
 };
 
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"app/routes/public/index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"app/routes/public/context/store.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StateProvider = exports.store = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var initialState = {
+  word: 'foo'
+};
+var store = React.createContext(initialState);
+exports.store = store;
+var Provider = store.Provider;
+
+var StateProvider = function StateProvider(_ref) {
+  var children = _ref.children;
+
+  var _React$useReducer = React.useReducer(function (state, action) {
+    switch (action.type) {
+      case 'change':
+        return {
+          word: action.payload
+        };
+
+      default:
+        throw new Error();
+    }
+  }, initialState),
+      _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
+      state = _React$useReducer2[0],
+      dispatch = _React$useReducer2[1];
+
+  return React.createElement(Provider, {
+    value: {
+      state: state,
+      dispatch: dispatch
+    }
+  }, children);
+};
+
+exports.StateProvider = StateProvider;
+},{"react":"../node_modules/react/index.js"}],"app/routes/public/context/context.route.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var store_1 = require("./store");
+
+function ContextRoute() {
+  var _a = React.useContext(store_1.store),
+      state = _a.state,
+      dispatch = _a.dispatch;
+
+  console.log(React.useContext(store_1.store));
+  return React.createElement(store_1.StateProvider, null, React.createElement(ContextDemo, null));
+}
+
+exports.ContextRoute = ContextRoute;
+
+function ContextDemo() {
+  var _a = React.useContext(store_1.store),
+      state = _a.state,
+      dispatch = _a.dispatch;
+
+  return React.createElement(React.Fragment, null, React.createElement("div", null, state.word), React.createElement("button", {
+    onClick: function onClick() {
+      return dispatch({
+        type: 'change',
+        payload: Math.random()
+      });
+    }
+  }, "click me"));
+}
+},{"react":"../node_modules/react/index.js","./store":"app/routes/public/context/store.js"}],"app/routes/public/loading-context/store.tsx":[function(require,module,exports) {
+"use strict";
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var initialState = {
+  apiReq: {
+    data: {
+      data: ''
+    },
+    isLoading: true,
+    hasErrored: false
+  }
+};
+var store = React.createContext(initialState);
+exports.store = store;
+var Provider = store.Provider;
+
+var StateProvider = function StateProvider(_a) {
+  var children = _a.children;
+
+  var _b = React.useReducer(function (state, action) {
+    var _a, _b, _c;
+
+    var _d = Object.entries(action.payload)[0],
+        key = _d[0],
+        value = _d[1];
+
+    switch (action.type) {
+      case 'setIsLoading':
+        return __assign(__assign({}, state), (_a = {}, _a[key] = __assign(__assign({}, state[key]), {
+          isLoading: value
+        }), _a));
+
+      case 'setHasErrored':
+        return __assign(__assign({}, state), (_b = {}, _b[key] = __assign(__assign({}, state[key]), {
+          hasErrored: value
+        }), _b));
+
+      case 'setData':
+        return __assign(__assign({}, state), (_c = {}, _c[key] = __assign(__assign({}, state[key]), {
+          data: value
+        }), _c));
+
+      default:
+        throw new Error();
+    }
+  }, initialState),
+      state = _b[0],
+      dispatch = _b[1];
+
+  return React.createElement(Provider, {
+    value: {
+      state: state,
+      dispatch: dispatch
+    }
+  }, children);
+};
+
+exports.StateProvider = StateProvider;
+},{"react":"../node_modules/react/index.js"}],"app/routes/public/loading-context/loading-context.route.tsx":[function(require,module,exports) {
+"use strict";
+
+var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var styled_components_1 = __importStar(require("styled-components"));
+
+var store_1 = require("./store");
+
+exports.LoadingContext = function (_a) {
+  var _b = _a.throwError,
+      throwError = _b === void 0 ? false : _b;
+
+  function getData() {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        throwError ? reject(new Error({
+          message: 'Failed miserably'
+        })) : resolve({
+          data: 'success'
+        });
+      }, 2000);
+    });
+  }
+
+  return React.createElement(store_1.StateProvider, null, React.createElement(Loader, {
+    getData: getData
+  }), React.createElement(ImaginaryChild, {
+    req: 'apiReq'
+  }));
+};
+
+var Loader = function Loader(_a) {
+  var getData = _a.getData;
+
+  var _b = React.useContext(store_1.store),
+      state = _b.state,
+      dispatch = _b.dispatch;
+
+  React.useEffect(function () {
+    var p = getData();
+    dispatch({
+      type: 'setIsLoading',
+      payload: {
+        apiReq: true
+      }
+    });
+    p.then(function (d) {
+      return dispatch({
+        type: 'setData',
+        payload: {
+          apiReq: d
+        }
+      });
+    }).catch(function (e) {
+      return dispatch({
+        type: 'setHasErrored',
+        payload: {
+          apiReq: e
+        }
+      });
+    }).finally(function () {
+      return dispatch({
+        type: 'setIsLoading',
+        payload: {
+          apiReq: false
+        }
+      });
+    });
+  }, []);
+  return null;
+};
+
+var ImaginaryChild = function ImaginaryChild(_a) {
+  var req = _a.req;
+  var state = React.useContext(store_1.store).state;
+  return React.createElement("h1", null, React.createElement(exports.Skeleton, {
+    req: req
+  }, state['apiReq'].data.data));
+};
+
+exports.Skeleton = function (_a) {
+  var req = _a.req,
+      children = _a.children,
+      _b = _a.errorMessage,
+      errorMessage = _b === void 0 ? 'Nothing to show here' : _b,
+      translucent = _a.translucent,
+      _c = _a.width,
+      width = _c === void 0 ? '100%' : _c;
+
+  var _d = req,
+      _e = React.useContext(store_1.store).state[_d],
+      isLoading = _e.isLoading,
+      hasErrored = _e.hasErrored;
+
+  return isLoading ? React.createElement(DynamicSkeletonLine, {
+    translucent: translucent,
+    width: width
+  }) : React.createElement(React.Fragment, null, hasErrored ? errorMessage : children);
+};
+
+var pulse = styled_components_1.keyframes(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  0% {\n    background-position: 0% 0%;\n  }\n  100% {\n    background-position: -135% 0%;\n  }\n"], ["\n  0% {\n    background-position: 0% 0%;\n  }\n  100% {\n    background-position: -135% 0%;\n  }\n"])));
+var SkeletonPulse = styled_components_1.default.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  display: inline-block;\n  height: 100%;\n  width: 100%;\n  background: ", ";\n  background-size: 400% 400%;\n  animation: ", " 1.2s ease-in-out infinite;\n"], ["\n  display: inline-block;\n  height: 100%;\n  width: 100%;\n  background: ", ";\n  background-size: 400% 400%;\n  animation: ", " 1.2s ease-in-out infinite;\n"])), function (props) {
+  return props.translucent ? styled_components_1.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["linear-gradient(-90deg, #C1C1C1 0%, #F8F8F8 50%, #C1C1C1 100%)"], ["linear-gradient(-90deg, #C1C1C1 0%, #F8F8F8 50%, #C1C1C1 100%)"]))) : styled_components_1.css(templateObject_3 || (templateObject_3 = __makeTemplateObject(["linear-gradient(-90deg, #F0F0F0 0%, #F8F8F8 50%, #F0F0F0 100%)"], ["linear-gradient(-90deg, #F0F0F0 0%, #F8F8F8 50%, #F0F0F0 100%)"])));
+}, pulse);
+var SkeletonLine = styled_components_1.default(SkeletonPulse)(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  width: 5.5em;\n  border-radius: 5px;\n  width: props => props.width;\n  &::before {\n    content: '\\00a0';\n  }\n"], ["\n  width: 5.5em;\n  border-radius: 5px;\n  width: props => props.width;\n  &::before {\n    content: '\\\\00a0';\n  }\n"])));
+
+var DynamicSkeletonLine = function DynamicSkeletonLine(_a) {
+  var _b = _a.translucent,
+      translucent = _b === void 0 ? false : _b,
+      width = _a.width;
+  return React.createElement(SkeletonLine, {
+    translucent: translucent,
+    width: width
+  });
+};
+
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./store":"app/routes/public/loading-context/store.tsx"}],"app/routes/public/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46811,7 +47153,15 @@ exports.LoadingRoute = loading_route_1.LoadingRoute;
 var skeleton_route_1 = require("./skeleton/skeleton.route");
 
 exports.SkeletonRoute = skeleton_route_1.SkeletonRoute;
-},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs/tabs.router":"app/routes/public/tabs/tabs.router.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx","./skeleton/skeleton.route":"app/routes/public/skeleton/skeleton.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
+
+var context_route_1 = require("./context/context.route");
+
+exports.ContextRoute = context_route_1.ContextRoute;
+
+var loading_context_route_1 = require("./loading-context/loading-context.route");
+
+exports.LoadingContext = loading_context_route_1.LoadingContext;
+},{"./landing":"app/routes/public/landing.tsx","./sign-in":"app/routes/public/sign-in.tsx","./tabs/tabs.router":"app/routes/public/tabs/tabs.router.tsx","./loading/loading.route":"app/routes/public/loading/loading.route.tsx","./skeleton/skeleton.route":"app/routes/public/skeleton/skeleton.route.tsx","./context/context.route":"app/routes/public/context/context.route.tsx","./loading-context/loading-context.route":"app/routes/public/loading-context/loading-context.route.tsx"}],"app/routes/private/home.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -46942,6 +47292,12 @@ exports.AppRouter = function () {
   }, React.createElement(public_1.LoadingRoute, null)), React.createElement(react_router_dom_1.Route, {
     path: "/skeleton"
   }, React.createElement(public_1.SkeletonRoute, null)), React.createElement(react_router_dom_1.Route, {
+    path: "/context",
+    component: public_1.ContextRoute
+  }), React.createElement(react_router_dom_1.Route, {
+    path: "/loading-context",
+    component: public_1.LoadingContext
+  }), React.createElement(react_router_dom_1.Route, {
     path: "/"
   }, React.createElement(public_1.Landing, null)))));
 };
@@ -47069,7 +47425,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/34363/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/1367/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47097,7 +47453,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58616" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49958" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47273,5 +47629,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/34363/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/1367/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map

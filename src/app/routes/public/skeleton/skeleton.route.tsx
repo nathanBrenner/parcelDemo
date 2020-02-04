@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 export const SkeletonRoute: React.FC<{}> = (): React.ReactElement => {
   const [isLoading, setIsLoading] = React.useState(false)
-  const [hasErrored, setHasErrored] = React.useState(true)
+  const [hasErrored, setHasErrored] = React.useState(false)
 
   React.useEffect(() => {
     const interval = setInterval(() => setIsLoading(is => !is), 2000)
@@ -38,7 +38,7 @@ const SSkeletonPulse = styled.div`
       background-position: -135% 0%;
     }
   }
-`;
+`
 
 const SSkeletonLine = styled(SSkeletonPulse)`
   width: 5.5em;
@@ -47,7 +47,7 @@ const SSkeletonLine = styled(SSkeletonPulse)`
   &::before {
     content: "\00a0";
   }
-`;
-const SkeletonLine = ({translucent = false}) => (
+`
+const SkeletonLine = ({ translucent = false }) => (
   <SSkeletonLine translucent={translucent} />
-);
+)

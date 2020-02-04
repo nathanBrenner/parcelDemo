@@ -7,6 +7,8 @@ const routes = [
   { to: '/tabs', label: 'tabs' },
   { to: '/loading', label: 'loading' },
   { to: '/skeleton', label: 'skeleton' }
+  { to: '/context', label: 'context'},
+  { to: '/loading-context', label: 'loading-context'}
 ]
 
 export const Landing: React.FunctionComponent<{}> = (): React.ReactElement => {
