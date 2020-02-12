@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-export const SignIn: React.FunctionComponent<{}> = (): React.ReactElement => {
+export default (): React.ReactElement => {
   return (
     <div>
       <h1>signin</h1>

@@ -6,9 +6,10 @@ const routes = [
   { to: '/home', label: 'home' },
   { to: '/tabs', label: 'tabs' },
   { to: '/loading', label: 'loading' },
-  { to: '/skeleton', label: 'skeleton' }
+  { to: '/skeleton', label: 'skeleton' },
   { to: '/context', label: 'context'},
-  { to: '/loading-context', label: 'loading-context'}
+  { to: '/loading-context', label: 'loading-context'},
+  { to: '/ion-loading', label: 'ion loading'}
 ]
 
 export const Landing: React.FunctionComponent<{}> = (): React.ReactElement => {

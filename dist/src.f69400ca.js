@@ -35745,6 +35745,9 @@ var routes = [{
 }, {
   to: '/loading-context',
   label: 'loading-context'
+}, {
+  to: '/ion-loading',
+  label: 'ion loading'
 }];
 
 exports.Landing = function () {
@@ -43464,7 +43467,7 @@ var React = __importStar(require("react"));
 
 var formik_1 = require("formik");
 
-exports.SignIn = function () {
+exports.default = function () {
   return React.createElement("div", null, React.createElement("h1", null, "signin"), React.createElement(formik_1.Formik, {
     initialValues: {
       email: '',
@@ -47253,7 +47256,78 @@ Object.defineProperty(exports, "__esModule", {
 var header_1 = require("./header");
 
 exports.Header = header_1.Header;
-},{"./header":"components/header.tsx"}],"app/routes/index.tsx":[function(require,module,exports) {
+},{"./header":"components/header.tsx"}],"app/routes/public/ion-loading/logo-icon.svg":[function(require,module,exports) {
+module.exports = "/logo-icon.de6d5306.svg";
+},{}],"app/routes/public/ion-loading/index.tsx":[function(require,module,exports) {
+"use strict";
+
+var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var logo_icon_svg_1 = __importDefault(require("./logo-icon.svg"));
+
+var styled_components_1 = __importStar(require("styled-components"));
+
+var rotation = styled_components_1.keyframes(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n"], ["\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n"])));
+var LogomarkStyle = styled_components_1.default.img(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  // em because the parent CombinationMark component\n  // will set the font size for this instance of the Logotype\n  height: 3.4em;\n  margin: 0 0.5em;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  animation: ", " 3s infinite linear;\n"], ["\n  // em because the parent CombinationMark component\n  // will set the font size for this instance of the Logotype\n  height: 3.4em;\n  margin: 0 0.5em;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  animation: ", " 3s infinite linear;\n"])), rotation);
+var Container = styled_components_1.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  z-index: 10;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"], ["\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  z-index: 10;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])));
+
+exports.default = function (props) {
+  return React.createElement(Container, null, React.createElement(LogomarkStyle, __assign({}, props, {
+    src: logo_icon_svg_1.default,
+    alt: 'Ion Channel Logo'
+  })));
+};
+
+var templateObject_1, templateObject_2, templateObject_3;
+},{"react":"../node_modules/react/index.js","./logo-icon.svg":"app/routes/public/ion-loading/logo-icon.svg","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"app/routes/index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47264,6 +47338,12 @@ var __importStar = this && this.__importStar || function (mod) {
   }
   result["default"] = mod;
   return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
 };
 
 Object.defineProperty(exports, "__esModule", {
@@ -47280,10 +47360,24 @@ var private_1 = require("./private");
 
 var components_1 = require("../../components");
 
+var ion_loading_1 = __importDefault(require("./public/ion-loading"));
+
 exports.AppRouter = function () {
-  return React.createElement(react_router_dom_1.BrowserRouter, null, React.createElement(components_1.Header, null), React.createElement("div", null, React.createElement(react_router_dom_1.Switch, null, React.createElement(react_router_dom_1.Route, {
+  // const SignIn = React.lazy(() => import("./public/sign-in"))
+  var SignIn = React.lazy(function () {
+    return new Promise(function (resolve, reject) {
+      return setTimeout(function () {
+        return resolve(Promise.resolve().then(function () {
+          return __importStar(require("./public/sign-in"));
+        }));
+      }, 5000);
+    });
+  });
+  return React.createElement(react_router_dom_1.BrowserRouter, null, React.createElement(components_1.Header, null), React.createElement("div", null, React.createElement(React.Suspense, {
+    fallback: React.createElement(ion_loading_1.default, null)
+  }, React.createElement(react_router_dom_1.Switch, null, React.createElement(react_router_dom_1.Route, {
     path: "/log-in"
-  }, React.createElement(public_1.SignIn, null)), React.createElement(react_router_dom_1.Route, {
+  }, React.createElement(SignIn, null)), React.createElement(react_router_dom_1.Route, {
     path: "/home"
   }, React.createElement(private_1.Home, null)), React.createElement(react_router_dom_1.Route, {
     path: "/tabs"
@@ -47298,10 +47392,13 @@ exports.AppRouter = function () {
     path: "/loading-context",
     component: public_1.LoadingContext
   }), React.createElement(react_router_dom_1.Route, {
+    path: "/ion-loading"
+  }, React.createElement(ion_loading_1.default, null)), React.createElement(react_router_dom_1.Route, {
+    exact: true,
     path: "/"
-  }, React.createElement(public_1.Landing, null)))));
+  }, React.createElement(public_1.Landing, null))))));
 };
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx"}],"../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./public":"app/routes/public/index.tsx","./private":"app/routes/private/index.tsx","../../components":"components/index.tsx","./public/ion-loading":"app/routes/public/ion-loading/index.tsx","./public/sign-in":"app/routes/public/sign-in.tsx"}],"../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -47333,7 +47430,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -47368,12 +47465,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/bundle-url.js"}],"app/style.css":[function(require,module,exports) {
+},{"./bundle-url":"../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/bundle-url.js"}],"app/style.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../.npm/_npx/32527/lib/node_modules/parcel/src/builtins/css-loader.js"}],"app/index.tsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/css-loader.js"}],"app/index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -47425,7 +47522,7 @@ var ReactDOM = __importStar(require("react-dom"));
 var app_1 = require("./app");
 
 ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/1367/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./app":"app/index.tsx"}],"../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47453,7 +47550,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49958" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57763" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -47629,5 +47726,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.npm/_npx/1367/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
+},{}]},{},["../../../../.npm/_npx/23275/lib/node_modules/parcel/src/builtins/hmr-runtime.js","index.tsx"], null)
 //# sourceMappingURL=/src.f69400ca.js.map
