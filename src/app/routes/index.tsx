@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Landing, TabsRouter, LoadingRoute, SkeletonRoute, ContextRoute, LoadingContext } from './public'
+import { Landing, TabsRouter, LoadingRoute, SkeletonRoute, ContextRoute, LoadingContext, LoggedIn } from './public'
 import { Home } from './private'
 import { Header } from '../../components'
 import Logo from './public/ion-loading'
@@ -37,6 +37,7 @@ export const AppRouter: React.FunctionComponent<{}> = (): React.ReactElement => 
             </Route>
             <Route path="/context" component={ContextRoute} />
             <Route path="/loading-context" component={LoadingContext} />
+            <Route path="/logged-in"><LoggedIn /></Route>
             <Route path="/ion-loading">
               <Logo />
             </Route>

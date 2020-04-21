@@ -1,5 +1,5 @@
 export { Landing } from './landing'
-export { SignIn } from './sign-in'
+export { LoggedIn } from './logged-in'
 export { TabsRouter } from './tabs/tabs.router'
 export { LoadingRoute } from './loading/loading.route'
 export { SkeletonRoute } from './skeleton/skeleton.route'
