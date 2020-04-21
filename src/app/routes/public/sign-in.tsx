@@ -49,8 +49,8 @@ export default (): React.ReactElement => {
 
 function signMeIn(payload) {
   return new Promise((resolve, reject) => {
-    const randomlyFail = Math.round(Math.random())
-    setTimeout(() => randomlyFail ? resolve('happy') : reject('unable to log in at this time'), 2000)
+    // const randomlyFail = Math.round(Math.random())
+    setTimeout(() => true ? resolve('happy') : reject('unable to log in at this time'), 2000)
   })
 }
 

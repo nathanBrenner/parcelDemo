@@ -35759,7 +35759,22 @@ Object.defineProperty(exports, "__esModule", {
 var React = __importStar(require("react"));
 
 exports.LoggedIn = function () {
-  return React.createElement("h1", null, "You're logged in");
+  var _a = React.useState({}),
+      data = _a[0],
+      setData = _a[1];
+
+  React.useEffect(function () {
+    setTimeout(function () {
+      setData({
+        list: []
+      });
+    }, 500);
+  }, []);
+  return React.createElement("div", null, React.createElement("h1", null, "You're logged in"), React.createElement("h2", null, "List of things"), React.createElement("ul", null, data.list.map(function (l) {
+    return React.createElement("li", {
+      key: l
+    }, l);
+  })));
 };
 },{"react":"../node_modules/react/index.js"}],"../node_modules/shallowequal/index.js":[function(require,module,exports) {
 //
@@ -47326,9 +47341,9 @@ exports.default = function () {
 
 function signMeIn(payload) {
   return new Promise(function (resolve, reject) {
-    var randomlyFail = Math.round(Math.random());
+    // const randomlyFail = Math.round(Math.random())
     setTimeout(function () {
-      return randomlyFail ? resolve('happy') : reject('unable to log in at this time');
+      return true ? resolve('happy') : reject('unable to log in at this time');
     }, 2000);
   });
 }
